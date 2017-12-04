@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+.home-title {
+  background: url(assets/images/bg.jpg) no-repeat bottom;
+}
+.home-title-inner {
+  background: rgba(0,0,0,.3);
+}
+.skills {
+  background: url(assets/images/skillsbg.jpg) no-repeat;
+  padding: 4em 0 1em;
+}
+.skills-list .item {
+  position: relative;
+}
+.skills-list .ui.label {
+  position: absolute;
+  top: -3px;
+  margin-left: -20px;
+}
+.skills-list .mark-min {
+  position: absolute;
+  top: 50px;
+  color: #c5c5c5;
+}
+.skills-list .mark-max {
+  position: absolute;
+  top: 50px;
+  color: #c5c5c5;
+  right: 0;
+}
