@@ -1,6 +1,7 @@
 {
-  "name": "a",
+  "name": "VioletHome",
   "version": "0.1.0",
+  "homepage": "https://violetd.github.io/build/",
   "private": true,
   "dependencies": {
     "autoprefixer": "7.1.6",
@@ -50,7 +51,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build": "node scripts/build.js & cp build/index.html .",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
