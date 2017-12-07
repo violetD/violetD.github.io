@@ -6,11 +6,10 @@ body {
 .home-title {
   background: url(assets/images/bg.jpg) no-repeat bottom;
 }
-.home-title-inner {
-  background: rgba(0,0,0,.3);
-}
 .skills {
   background: url(assets/images/skillsbg.jpg) no-repeat;
+}
+.skills .mask-container {
   padding: 4em 0 1em;
 }
 .skills-list .item {
@@ -31,4 +30,19 @@ body {
   top: 50px;
   color: #c5c5c5;
   right: 0;
+}
+
+@import 'animate.less/animate.less';
+.works-item img {
+  transition: transform 0.5s;
+}
+.works-item p {
+  transition: transform 0.5s;
+  transform: translate3d(0, 2.5em, 0);
+}
+.works-item:hover img {
+  transform: translate3d(0, -2.5em, 0);
+}
+.works-item:hover p {
+  transform: translate3d(0, 0, 0);
 }

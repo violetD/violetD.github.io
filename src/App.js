@@ -15,9 +15,14 @@ import {
   Label,
 } from 'semantic-ui-react';
 import Scroll from 'react-scroll';
+import _ from 'lodash';
 
 const { Element, Link, scrollSpy } = Scroll;
-const menus = ['Home', 'Intro', 'Skills', 'Resume', 'Works'];
+const menus = ['Home', 'Intro', 'Skills', 'Works'];
+const works = [{
+  'image': require('./assets/images/g1.jpg'),
+  'description': '测试的哦'
+}]
 
 const FixedMenu = ({activeMenu, setActiveMenu}) => (
   <Menu fixed='top' size='large'>
@@ -31,6 +36,23 @@ const FixedMenu = ({activeMenu, setActiveMenu}) => (
   </Menu>
 );
 
+const MaskContainer = ({className, children}) => (
+  <div className={className}>
+    <div className="mask-container" style={{
+      background: 'rgba(0,0,0,.3)'
+    }}>{children}</div>
+  </div>
+)
+
+const HeaderDecorate = () => (
+  <div style={{
+    width: '65px',
+    height: '3px',
+    margin: '0 auto 2em',
+    background: '#56b2e6'
+  }}></div>
+)
+
 const SkillsList = (index) => {
   return [[{
     name: 'PHP',
@@ -38,6 +60,9 @@ const SkillsList = (index) => {
   }, {
     name: 'Mysql',
     value: 300
+  }, {
+    name: 'Shell',
+    value: 200
   }], [{
     name: 'HTML',
     value: 470
@@ -47,6 +72,9 @@ const SkillsList = (index) => {
   }, {
     name: 'Javascript',
     value: 370
+  }, {
+    name: 'Photoshop',
+    value: 170
   }]][index].map((skill) => {
     let p = skill.value/475*100;
     return (
@@ -91,70 +119,66 @@ export default class HomepageLayout extends Component {
           once={false}
         >
           <Element name="Home">
-            <div className="home-title">
-              <div className="home-title-inner">
-                <Segment
-                  textAlign='center'
-                  style={{ minHeight: 700, padding: '0em' }}
-                  vertical
+            <MaskContainer className="home-title">
+              <Segment
+                textAlign='center'
+                style={{ minHeight: 700, padding: '0em' }}
+                vertical
+              >
+                <div
+                  style={{ background: 'rgba(0,0,0,.2)' }}
                 >
-                  <div
-                    style={{ background: 'rgba(0,0,0,.2)' }}
-                  >
-                    <Container>
-                      <Menu inverted pointing secondary size='large'
-                        style={{ background: 'transparent', borderColor: 'transparent' }}
-                      >
-                        {menus.map((menu) => (
-                          <Menu.Item key={menu} active={activeMenu===menu}><Link spy={true} hashSpy={true} activeClass="active" to={menu} smooth={true} duration={500} onSetActive={() => {
-                            this.setActiveMenu(menu);
-                          }}>{menu}</Link></Menu.Item>
-                        ))}
-                      </Menu>
-                    </Container>
-                  </div>
-
-                  <Container text>
-                    <Header
-                      as='h1'
-                      content="Violet's Home"
-                      inverted
-                      style={{ fontSize: '4em', fontWeight: 'normal', marginBottom: 0, marginTop: '3em' }}
-                    />
-                    <Header
-                      as='h2'
-                      content='Just do it.'
-                      inverted
-                      style={{ fontSize: '1.7em', fontWeight: 'normal' }}
-                    />
-                    <Button primary size='huge'>
-                      Get Understood
-                      <Icon name='right arrow' />
-                    </Button>
+                  <Container>
+                    <Menu inverted pointing secondary size='large'
+                      style={{ background: 'transparent', borderColor: 'transparent' }}
+                    >
+                      {menus.map((menu) => (
+                        <Menu.Item key={menu} active={activeMenu===menu}><Link spy={true} hashSpy={true} activeClass="active" to={menu} smooth={true} duration={500} onSetActive={() => {
+                          this.setActiveMenu(menu);
+                        }}>{menu}</Link></Menu.Item>
+                      ))}
+                    </Menu>
                   </Container>
-                </Segment>
-              </div>
-            </div>
+                </div>
+
+                <Container text>
+                  <Header
+                    as='h1'
+                    content="Violet's Home"
+                    inverted
+                    style={{ fontSize: '4em', fontWeight: 'normal', marginBottom: 0, marginTop: '3em' }}
+                  />
+                  <Header
+                    as='h2'
+                    content='Just do it.'
+                    inverted
+                    style={{ fontSize: '1.7em', fontWeight: 'normal' }}
+                  />
+                  <Button primary size='huge'>
+                    Get Understood
+                    <Icon name='right arrow' />
+                  </Button>
+                </Container>
+              </Segment>
+            </MaskContainer>
           </Element>
         </Visibility>
 
         <Element name="Intro">
           <Segment style={{ padding: '8em 0em' }} vertical>
-            <Container text>
-              <Header as='h3' style={{ fontSize: '2em' }}>Breaking The Grid, Grabs Your Attention</Header>
-              <p style={{ fontSize: '1.33em' }}>
-                Instead of focusing on content creation and hard work, we have learned how to master the art of doing
-                nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic
-                and worth your attention.
-              </p>
+            <Container text style={{ fontSize: '2em' }}>
+              <p style={{ lineHeight: '3.5em' }}><Icon name="birthday" /> March 18th, 1988, born in Guiyang, Guizhou, China</p>
+              <p style={{ lineHeight: '3.5em' }}><Icon name="university" /> Study in Shanghai University Of Electric Power since 2006</p>
+              <p style={{ lineHeight: '3.5em' }}><Icon name="code" /> Work as a web engineer after school</p>
             </Container>
           </Segment>
         </Element>
 
         <Element name="Skills">
           <Segment style={{ padding: '0em' }} vertical inverted>
-            <div className="skills">
+            <MaskContainer className="skills">
               <Header as="h3" textAlign="center" inverted style={{ fontSize: '3em' }}>My Skills</Header>
+              <HeaderDecorate />
               <Grid columns='equal' stackable>
                 <Grid.Row>
                   <Grid.Column>
@@ -169,19 +193,50 @@ export default class HomepageLayout extends Component {
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
-            </div>
-          </Segment>
-        </Element>
-
-        <Element name="Resume">
-          <Segment style={{ padding: '8em 0em' }} vertical>
-            <Container text>
-              <Header as='h3' style={{ fontSize: '2em' }}>Download my resume here</Header>
-            </Container>
+            </MaskContainer>
           </Segment>
         </Element>
 
         <Element name="Works">
+          <Container style={{ padding: '4em 0em' }}>
+            <Header as="h3" textAlign="center" style={{ fontSize: '3em' }}>My Works</Header>
+            <HeaderDecorate />
+            <Grid>
+              {_.chunk(works, 3).map((items) => {
+                return (
+                  <Grid.Row columns={3} key={Date()}>
+                    {items.map((item) => (
+                      <Grid.Column key={item.description} className="works-item">
+                        <div style={{
+                          position: 'relative',
+                          overflow: 'hidden',
+                          background: '#F58703',
+                        }}>
+                          <Image src={item.image} fluid />
+                          <div style={{
+                            position: 'absolute',
+                            top: '0',
+                            left: '0',
+                            width: '100%',
+                            height: '100%',
+                            overflow: 'hidden',
+                            color: '#fff'
+                          }}>
+                            <p style={{
+                              position: 'absolute',
+                              bottom: '0',
+                              left: '0',
+                              padding: '0.5em 1em'
+                            }}>{item.description}</p>
+                          </div>
+                        </div>
+                      </Grid.Column>
+                  ))}
+                  </Grid.Row>
+                )
+              })}
+            </Grid>
+          </Container>
         </Element>
 
         <Segment inverted vertical style={{ padding: '5em 0em' }}  textAlign='center'>
