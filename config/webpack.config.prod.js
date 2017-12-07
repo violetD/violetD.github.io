@@ -8,6 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const RewriteImportPlugin = require("less-plugin-rewrite-import");
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
@@ -214,6 +215,27 @@ module.exports = {
               )
             ),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+          },
+          {
+            test: /\.(less|config|variables)$/,
+            use: [
+              'style-loader',
+              'css-loader',
+              {
+                // compiles Less to CSS
+                loader: 'less-loader',
+                options: {
+                  paths: [ paths.appSrc, paths.appNodeModules ],
+                  plugins: [
+                    new RewriteImportPlugin({
+                      paths: {
+                        "../../theme.config": path.join(paths.appSrc, "assets", "theme.config")
+                      }
+                    }),
+                  ]
+                }
+              },
+            ],
           },
           // "file" loader makes sure assets end up in the `build` folder.
           // When you `import` an asset, you get its filename.
